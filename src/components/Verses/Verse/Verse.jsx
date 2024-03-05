@@ -2,7 +2,7 @@ import React from "react";
 
 function Verse({ verse }) {
   return (
-    <div className="verse-cont">
+    <div className="verse-cont"> . 
       <div className="chaptegr_number">{verse?.chapter_number}</div>
       <div className="commentaries">{verse?.commentaries}</div>
       <div className="id">{verse?.id} </div>
