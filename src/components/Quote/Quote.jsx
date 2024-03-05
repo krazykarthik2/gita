@@ -3,18 +3,20 @@ import { getRandomSlok } from "../../utils/gitaApi";
 
 function Quote() {
   const [slok, setSlok] = React.useState({});
-  window.slok   =slok;
+  window.slok = slok;
   useMemo(() => {
-    getRandomSlok() 
-      .then((data) =>{
+    getRandomSlok()
+      .then((data) => {
         setSlok(data);
+        
       })
       .catch((error) => console.error(error));
-  });
-  return <div className="quote-screen">
-    <h1>slok</h1>
-    <h1> {slok.content} </h1>
-  </div>
+  }, []);
+  return (
+    <div className="quote-screen">
+      <h1>slok</h1>
+    </div>
+  );
 }
 
 export default Quote;
