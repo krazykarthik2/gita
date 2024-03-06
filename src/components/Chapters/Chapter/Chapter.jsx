@@ -3,6 +3,8 @@ import { getChapter } from "../../../utils/gitaApi";
 import languageCtx from "../../../context/languageCtx";
 import Share from "../../../utils/components/Share";
 import { Link, useParams } from "react-router-dom";
+import LanguageSelector from "./LanguageSelector";
+
 function Chapter({ chapter_index }) {
   const [chapter, setChapter] = useState({});
   const langCtx = useContext(languageCtx);
@@ -38,7 +40,9 @@ function Chapter({ chapter_index }) {
           )}
         </div>
         <div className="mid-down d-center">
-          <Link className="d-center" to={`/chapter/${chapter.id}/verses`}>read verses</Link>
+          <Link className="d-center" to={`/chapter/${chapter.id}/verses`}>
+            read verses
+          </Link>
         </div>
       </div>
 
@@ -59,30 +63,7 @@ function Chapter({ chapter_index }) {
           />
         </div>
         <div className="center d-center flex-column ">
-          <div className="radio-select hstack px-2 py-1 bg-dark text-white rounded-pill gap-2">
-            <button
-              className={
-                "btn rounded-circle text-white radio-circle p-0 fw-bold border-0 " +
-                (langCtx.language == "english" ? "bg-secondary" : "")
-              }
-              onClick={() => {
-                langCtx.setLanguage("english");
-              }}
-            >
-              EN
-            </button>
-            <button
-              className={
-                "btn rounded-circle text-white radio-circle p-0 fw-bold border-0 " +
-                (langCtx.language == "hindi" ? "bg-secondary" : "")
-              }
-              onClick={() => {
-                langCtx.setLanguage("hindi");
-              }}
-            >
-              HI
-            </button>
-          </div>
+          <LanguageSelector langCtx={langCtx} /> 
           <div className="chapter_number h4 user-select-none">
             {chapter.chapter_number}
           </div>

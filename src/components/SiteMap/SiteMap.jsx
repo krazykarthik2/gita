@@ -43,6 +43,11 @@ function SiteMap() {
       description: "Displays a specific chapter of the Bhagavad Gita",
     },
     {
+      path: "/chapter/"+random_index+"/verses",
+      name: "chapter/"+random_index+"/verses",
+      description: "Displays a specific chapter of the Bhagavad Gita",
+    },
+    {
       path: "/krishna",
       name: "/krishna/",
       description: "Information about Lord Krishna",
