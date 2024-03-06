@@ -21,6 +21,8 @@ function Verse({ verse, langCtx }) {
   const [translationsInLang, setTranslationsInLang] = useState([]);
   useEffect(() => {
     console.log(langCtx.language);
+    if(verse)
+    if(verse.translations)
     setTranslationsInLang(
       verse?.translations.filter((e) => e.language == langCtx.language)
     );
@@ -39,8 +41,9 @@ function Verse({ verse, langCtx }) {
         <div className="prefix">BG.</div>
         <div className="chapter_number">{verse?.chapter_number}</div>
         <div className="sep">.</div>
-        <div className="id">{verse?.id} </div>
+        <div className="verse_number">{verse?.verse_number}</div>
       </div>
+        <div className="id text-gray fw-bold pe-none">{verse?.id} </div>
       {/* <div className="commentaries">{verse?.commentaries}</div> */}
       <div className="d-flex flex-column fw-bold ">
         <div className="text h2">{verse?.text} </div>

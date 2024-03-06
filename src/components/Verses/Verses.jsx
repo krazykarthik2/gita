@@ -62,7 +62,7 @@ function Verses() {
           </Link>
         )}
       </div>
-      {params.verse_index == verses.length - 1 && params.chapter_index < 18 && (
+      {params.verse_index == verses.length  && params.chapter_index < 18 && (
         <div className="d-center">
           <Link
             to={`/chapter/${Number(params.chapter_index) + 1}/verses/`}
