@@ -19,25 +19,27 @@ function App() {
 
   return (
     <languageCtx.Provider value={{ language, setLanguage }}>
-    <Router>
-      <Routes>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/sitemap" element={<SiteMap />} />
+          <Route path="/time" element={<Time />} />
+          <Route path="/quote" element={<Quote />} />
+          <Route path="/chapters" element={<Chapters />} />
+          <Route path="/chapter/:chapter_index">
+            <Route path="" element={<Chapters />} />
+            <Route path="verses">
+              <Route path="" element={<Verses />} />
+              <Route path=":verse_index" element={<Verses />} />
+            </Route>
+          </Route>
 
-        <Route path="/" element={<Welcome />} />
-        <Route path="/sitemap" element={<SiteMap />} />
-        <Route path="/time" element={<Time />} />
-        <Route path="/quote" element={<Quote />} />
-        <Route path="/chapters" element={<Chapters />} />
-        <Route path="/chapter/:chapter_index">
-          <Route path="" element={<Chapters />} />
-          <Route path="verses" element={<Verses />} />
-        </Route>
-
-        <Route path="/krishna" element={<Krishna />} />
-        <Route path="/arjuna" element={<Arjuna />} />
-        <Route path="/background" element={<Background />} />
-        <Route path="/credits" element={<Credits />} />
-      </Routes>
-    </Router>
+          <Route path="/krishna" element={<Krishna />} />
+          <Route path="/arjuna" element={<Arjuna />} />
+          <Route path="/background" element={<Background />} />
+          <Route path="/credits" element={<Credits />} />
+        </Routes>
+      </Router>
     </languageCtx.Provider>
   );
 }

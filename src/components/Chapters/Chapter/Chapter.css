@@ -1,0 +1,19 @@
+.chapter-cont {
+  .chapter_summary{
+    max-height: 50vh;
+  }
+  
+  
+}
+/* applicable for verses also  */
+.book-icon{
+  font-size: 30px;
+}
+@media screen and (max-width: 400px) {
+  .chapter_summary{
+    max-height: 45vh;
+  }
+  .book-icon{
+    font-size: 40px;
+  }
+}

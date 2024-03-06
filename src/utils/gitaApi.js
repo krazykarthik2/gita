@@ -2,6 +2,11 @@ import axios from "axios";
 const BASE_URL = "https://bhagavad-gita3.p.rapidapi.com/v2/";
 window.axios = axios;
 // Function to fetch data from the API
+console.log(process.env);
+const log = (e) => {
+  console.log(e);
+  return e;
+};
 async function fetchData(url) {
   window.url = url;
   const options = {
@@ -9,8 +14,8 @@ async function fetchData(url) {
     url: url,
     params: { limit: "18" },
     headers: {
-      "X-RapidAPI-Key": "54b95710cbmshd4727593b0f80e8p17db62jsn6b453a43ab66",
-      "X-RapidAPI-Host": "bhagavad-gita3.p.rapidapi.com",
+      "X-RapidAPI-Key": log(process.env.REACT_APP_X_RAPIDAPI_KEY),
+      "X-RapidAPI-Host": log(process.env.REACT_APP_X_RAPIDAPI_HOST),
     },
   };
   let response;
@@ -64,8 +69,8 @@ async function getChapters() {
 // Function to get a specific chapter
 async function getChapter(chapter) {
   const chaptersData = await getChapters();
-  const chapterData = chaptersData[chapter]
-  console.log(chapter)
+  const chapterData = chaptersData[chapter];
+  console.log(chapter);
   console.log(chapterData);
   if (!chapterData) {
     throw new Error(`Chapter ${chapter} not found`);

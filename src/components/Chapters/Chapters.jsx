@@ -5,6 +5,7 @@ import Chapter from "./Chapter";
 function Chapters() {
   const [chapters, setChapters] = React.useState([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
+  window.chapters = chapters
   const params = useParams();
   useEffect(() => {
     if (params.chapter_index) {
@@ -23,10 +24,10 @@ function Chapters() {
   }, []);
   return (
     <div className="chapters-screen w-100 d-center flex-column h-100">
-      <div className="d-flex flex-column w-100 px-3 pt-2">
+      <div className="d-center justify-content-between w-100 px-3 pt-2">
         <div className="heading h1">Chapters</div>
-        <div className="number">
-          There are {chapters.length} chapters in Bhagavad Gita
+        <div className="number display-1">
+           {chapters.length}
         </div>
       </div>
       <div className="h-100 d-center ">
