@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { ContentLoad, Load } from "../../../utils/components/Loaders";
 function TranslationVerse({ translation }) {
   window.translation = translation;
   return (
     <div className="translation-verse">
       <div className="translation-description text-decoration-underline">
-        {translation?.description}
+        <ContentLoad value={translation?.description} lorem_count={12} />
       </div>
       <div className="hstack justify-content-between">
-        <div className="translation-id fw-bold text-gray">
-          translate#{translation?.id}
+        <div className="translation-id fw-bold text-gray hstack">
+          <div className="prefix">translate#</div>
+          <ContentLoad value={translation?.id} lorem_count={1} />
         </div>
-        <div className="translation-author">~{translation?.author_name}</div>
+        <div className="translation-author hstack">
+          <div className="prefix">~</div>
+          <ContentLoad value={translation?.author_name} lorem_count={1} />
+        </div>
       </div>
     </div>
   );
@@ -21,11 +26,11 @@ function Verse({ verse, langCtx }) {
   const [translationsInLang, setTranslationsInLang] = useState([]);
   useEffect(() => {
     console.log(langCtx.language);
-    if(verse)
-    if(verse.translations)
-    setTranslationsInLang(
-      verse?.translations.filter((e) => e.language == langCtx.language)
-    );
+    if (verse)
+      if (verse.translations)
+        setTranslationsInLang(
+          verse?.translations.filter((e) => e.language == langCtx.language)
+        );
   }, [verse, langCtx]);
   useEffect(() => {
     if (verse)
@@ -35,21 +40,33 @@ function Verse({ verse, langCtx }) {
         );
   }, [verse]);
   console.log(verse);
-  return verse ? (
+  return (
     <div className="verse-cont">
-      <div className="d-flex">
-        <div className="prefix">BG.</div>
-        <div className="chapter_number">{verse?.chapter_number}</div>
-        <div className="sep">.</div>
-        <div className="verse_number">{verse?.verse_number}</div>
+      <div className="hstack justify-content-between">
+        <div className="d-flex">
+          <div className="prefix">BG.</div>
+          <div className="chapter_number">
+            <Load value={verse?.chapter_number} />
+          </div>
+          <div className="sep">.</div>
+          <div className="verse_number">
+            <Load value={verse?.verse_number} />
+          </div>
+        </div>
+        <div className="id text-gray fw-bold pe-none">
+          <ContentLoad value={verse?.id} lorem_count={2} />{" "}
+        </div>
       </div>
-        <div className="id text-gray fw-bold pe-none">{verse?.id} </div>
       {/* <div className="commentaries">{verse?.commentaries}</div> */}
       <div className="d-flex flex-column fw-bold ">
-        <div className="text h2">{verse?.text} </div>
-        <div className="transliteration h3">{verse?.transliteration} </div>
+        <div className="text h2">
+          <ContentLoad value={verse?.text} lorem_count={10} />
+        </div>
+        <div className="transliteration h3">
+          <ContentLoad value={verse?.transliteration} lorem_count={10} />{" "}
+        </div>
       </div>
-{/*       
+      {/*       
       <div className="word_meanings">
         {verse?.word_meanings.split(";").map((e,i) => (
           <div key={i}>{e}</div>
@@ -60,10 +77,10 @@ function Verse({ verse, langCtx }) {
         <TranslationVerse translation={translationsInLang[randomTranslation]} />
       </div>
       {/* <div className="verse_number">{verse?.verse_number}</div> */}
-      <div className="slug">{verse?.slug}</div>
+      <div className="slug">
+        <ContentLoad value={verse?.slug} lorem_count={3} />
+      </div>
     </div>
-  ) : (
-    <></>
   );
 }
 

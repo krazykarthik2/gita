@@ -24,13 +24,18 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/sitemap" element={<SiteMap />} />
           <Route path="/time" element={<Time />} />
-          <Route path="/quote" element={<Quote />} />
-          <Route path="/chapters" element={<Chapters />} />
-          <Route path="/chapter/:chapter_index">
+          <Route path="/quote">
+            <Route path="" element={<Quote />} />
+            <Route path=":chapter_index/:verse_index" element={<Quote />} />
+          </Route>
+          <Route path="/chapters">
             <Route path="" element={<Chapters />} />
-            <Route path="verses">
-              <Route path="" element={<Verses />} />
-              <Route path=":verse_index" element={<Verses />} />
+            <Route path=":chapter_index">
+              <Route path="" element={<Chapters />} />
+              <Route path="verses">
+                <Route path="" element={<Verses />} />
+                <Route path=":verse_index" element={<Verses />} />
+              </Route>
             </Route>
           </Route>
 

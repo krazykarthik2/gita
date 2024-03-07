@@ -2,10 +2,11 @@ import React, { useEffect, useMemo } from "react";
 import { Link, useMatch, useParams } from "react-router-dom";
 import { getChapters } from "../../utils/gitaApi";
 import Chapter from "./Chapter";
+import BottomRowChapters from "./BottomRowChapters"
 function Chapters() {
   const [chapters, setChapters] = React.useState([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
-  window.chapters = chapters
+  window.chapters = chapters;
   const params = useParams();
   useEffect(() => {
     if (params.chapter_index) {
@@ -26,21 +27,19 @@ function Chapters() {
     <div className="chapters-screen w-100 d-center flex-column h-100">
       <div className="d-center justify-content-between w-100 px-3 pt-2">
         <div className="heading h1">Chapters</div>
-        <div className="number display-1">
-           {chapters.length}
-        </div>
+        <div className="number display-1">{chapters.length}</div>
       </div>
-      <div className="h-100 d-center ">
+      <div className="h-100 d-center w-100">
         {currentIndex >= 1 ? (
           <Link
-            to={`/chapter/${currentIndex}`}
+            to={`/chapters/${currentIndex}`}
             className="prev display-1 fw-bold bg-transparent border-0 text-decoration-none text-dark"
           >
             {currentIndex}
           </Link>
         ) : (
           <button className="prev display-1 fw-bold bg-transparent border-0 font-redacted opacity-50">
-            x
+            *
           </button>
         )}
         <Chapter key={currentIndex} chapter_index={currentIndex} />
@@ -48,18 +47,18 @@ function Chapters() {
         {currentIndex < chapters.length - 1 ? (
           <Link
             className="next display-1 fw-bold bg-transparent border-0 text-decoration-none text-dark"
-            to={`/chapter/${currentIndex + 2}`}
+            to={`/chapters/${currentIndex + 2}`}
           >
             {currentIndex + 2}
           </Link>
         ) : (
           <button className="next display-1 fw-bold bg-transparent border-0 font-redacted opacity-50">
-            x
+            *
           </button>
         )}
       </div>
+      <BottomRowChapters  currentIndex={currentIndex} chapter={chapters[currentIndex]}/>
     </div>
   );
 }
-
 export default Chapters;
