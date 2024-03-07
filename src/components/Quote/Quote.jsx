@@ -40,7 +40,7 @@ function Quote() {
       if (chapters.length > 0) {
         nextQuote();
      }
-    }g
+    }
   }, [params, chapters]);
   function nextQuote(){
     let randomChap = Math.floor(Math.random() * (chapters.length - 1) + 1);
