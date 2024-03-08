@@ -28,6 +28,11 @@ function SiteMap() {
       description: "Welcome page of the website",
     },
     {
+      path: "/search",
+      name: "/search",
+      description: "search for a verse in the Bhagavad Gita",
+    },
+    {
       path: "/time",
       name: "/time",
       description: "Displays the current time",

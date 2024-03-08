@@ -16,6 +16,7 @@ import LoadMap from "./components/LoadMap";
 import languageCtx from "./context/languageCtx";
 import Verses from "./components/Verses";
 import Query from "./components/Query";
+import Search from "./components/Search";
 function App() {
   const [language, setLanguage] = React.useState("english");
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/sitemap" element={<SiteMap />} />
           <Route path="/loadmap" element={<LoadMap />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/:query" element={<Query />} />
           <Route path="/time" element={<Time />} />
           <Route path="/quote">
