@@ -3,6 +3,7 @@ import { Link, useMatch, useParams } from "react-router-dom";
 import { getChapters } from "../../utils/gitaApi";
 import Chapter from "./Chapter";
 import BottomRowChapters from "./BottomRowChapters"
+import { FaMap } from "react-icons/fa6";
 function Chapters() {
   const [chapters, setChapters] = React.useState([]);
   const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -27,6 +28,9 @@ function Chapters() {
     <div className="chapters-screen w-100 d-center flex-column h-100">
       <div className="d-center justify-content-between w-100 px-3 pt-2">
         <div className="heading h1">Chapters</div>
+        <Link className="center" to={"/sitemap"}>
+          <FaMap />
+        </Link>
         <div className="number display-1">{chapters.length}</div>
       </div>
       <div className="h-100 d-center w-100">

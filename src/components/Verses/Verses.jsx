@@ -14,20 +14,28 @@ function Verses() {
   const [chapters, setChapters] = useState([]);
   const params = useParams();
   const langCtx = useContext(languageCtx);
+  function getSlokOfCurrentChapter(){
+    setVerses([]);
+    setVerse_ind(0);
+    getSlokByChapter(params.chapter_index)
+      .then((data) => {
+        setVerses(data);
+      })
+      .catch((error) => console.error(error));
+  }
   useMemo(() => {
     getChapters()
       .then((data) => {
         setChapters(data);
       })
       .catch((e) => console.log(e));
-    getSlokByChapter(params.chapter_index)
-      .then((data) => {
-        setVerses(data);
-        console.log(data);
-      })
-      .catch((error) => console.error(error));
+    getSlokOfCurrentChapter();
   }, []);
+  
   useEffect(() => {
+    if (params.chapter_index) {
+      getSlokOfCurrentChapter();
+    }
     if (params.verse_index) {
       setVerse_ind(Number(params.verse_index) - 1);
     }

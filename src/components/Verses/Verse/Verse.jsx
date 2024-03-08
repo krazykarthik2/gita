@@ -25,7 +25,6 @@ function Verse({ verse, langCtx }) {
   const [randomTranslation, setRandomTranslation] = useState(0);
   const [translationsInLang, setTranslationsInLang] = useState([]);
   useEffect(() => {
-    console.log(langCtx.language);
     if (verse)
       if (verse.translations)
         setTranslationsInLang(
@@ -39,7 +38,6 @@ function Verse({ verse, langCtx }) {
           Math.floor(Math.random() * (translationsInLang.length - 1)) + 1
         );
   }, [verse]);
-  console.log(verse);
   return (
     <div className="verse-cont">
       <div className="hstack justify-content-between">

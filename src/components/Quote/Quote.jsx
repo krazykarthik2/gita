@@ -39,18 +39,16 @@ function Quote() {
     } else {
       if (chapters.length > 0) {
         nextQuote();
-     }
+      }
     }
   }, [params, chapters]);
-  function nextQuote(){
-    let randomChap = Math.floor(Math.random() * (chapters.length - 1) + 1);
+  function nextQuote() {
+    let randomChap = Math.floor(Math.random() * (chapters.length - 1)) + 1;
     console.log(randomChap);
     console.log(chapters[randomChap]);
-    let randomVerse = Math.floor(
-      Math.random() * chapters[randomChap].verses_count + 1
-    );
+    let randomVerse =
+      Math.floor(Math.random() * chapters[randomChap].verses_count) + 1;
     navigate(`/quote/${randomChap}/${randomVerse}`);
-  
   }
   return (
     <div className="verses w-100 h-100 vstack">
@@ -63,10 +61,15 @@ function Quote() {
         </nav>
       </div>
       <div className="refresh d-center w-100">
-        <TiArrowSync size={"40px"} onClick={() => {nextQuote()}}/>
+        <TiArrowSync
+          size={"40px"}
+          onClick={() => {
+            nextQuote();
+          }}
+        />
       </div>
       <div className="h-100 d-center justify-content-between px-2">
-        <Verse verse={verses[verse_ind]} langCtx={langCtx} />
+        <Verse verse={verses[verse_ind]} langCtx={langCtx} key={verse_ind} />
       </div>
       {params.verse_index == verses.length && params.chapter_index < 18 && (
         <div className="d-center">

@@ -1,20 +1,26 @@
 @font-face {
   font-family: Neue;
-  src: url();
+  src: url("/src/assets/fonts/NeueMachina-Light.otf"),
+    url("/src/assets/fonts/NeueMachina-Regular.otf"),
+    url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
 }
-@import url('https://fonts.googleapis.com/css2?family=Redacted&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@font-face {
+  font-family: "Neue-bold";
+  src: url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
+}
+@import url("https://fonts.googleapis.com/css2?family=Redacted&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 body {
   margin: 0;
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.radio-circle{
+.radio-circle {
   width: 2.5em;
   height: 2.5em;
 }
-.max-vh-50{
+.max-vh-50 {
   max-height: 50vh;
 }
 .text-center {
@@ -23,14 +29,14 @@ body {
 .text-gray {
   color: gray;
 }
-.d-center{
+.d-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -39,10 +45,23 @@ code {
   max-height: 100vh;
   /* overflow: hidden; */
 }
-.font-redacted{
-  font-family: 'Redacted' !important;
+.font-redacted {
+  font-family: "Redacted" !important;
+}
+.font-Neue {
+  font-family: "Neue" !important;
+}
+.font-Neue.fw-bold{
+  font-family: "Neue-bold" !important;
 }
 @keyframes spin {
-  0%{ transform: rotate(0deg);}
-  100%{ transform: rotate(360deg);}
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.w-em-3{
+  width: 3em !important;  
 }

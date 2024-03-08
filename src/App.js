@@ -11,9 +11,11 @@ import Background from "./components/Background";
 import Credits from "./components/Credits";
 import Chapter from "./components/Chapters/Chapter";
 import Chapters from "./components/Chapters";
-import SiteMap from "./components/SiteMap/SiteMap";
+import SiteMap from "./components/SiteMap";
+import LoadMap from "./components/LoadMap";
 import languageCtx from "./context/languageCtx";
-import Verses from "./components/Verses/Verses";
+import Verses from "./components/Verses";
+import Query from "./components/Query";
 function App() {
   const [language, setLanguage] = React.useState("english");
 
@@ -23,6 +25,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Welcome />} />
           <Route path="/sitemap" element={<SiteMap />} />
+          <Route path="/loadmap" element={<LoadMap />} />
+          <Route path="/:query" element={<Query />} />
           <Route path="/time" element={<Time />} />
           <Route path="/quote">
             <Route path="" element={<Quote />} />

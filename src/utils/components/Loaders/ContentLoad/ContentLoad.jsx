@@ -6,7 +6,7 @@ function ContentLoad({value,lorem_count=10}) {
   return (
     value?
     <>{value}</>:
-    <div className="content-loading font-redacted">
+    <div className="content-loading font-redacted pe-none user-select-none">
     {lorem.split(' ').filter((e,i)=>i<lorem_count).join(' ')}
     </div>
   )
