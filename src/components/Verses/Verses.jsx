@@ -6,7 +6,16 @@ import LanguageSelector from "../Chapters/Chapter/LanguageSelector";
 import languageCtx from "../../context/languageCtx";
 import { BottomRow } from "../Chapters/Chapter/BottomRow";
 import { GiSpellBook } from "react-icons/gi";
-import { FaAngleLeft, FaAngleRight, FaArrowLeft, FaArrowRight, FaArrowRightArrowLeft } from "react-icons/fa6";
+import {FaMapSigns} from "react-icons/fa";
+import {
+  FaAngleLeft,
+  FaAngleRight,
+  FaArrowLeft,
+  FaArrowRight,
+  FaArrowRightArrowLeft,
+  FaBook,
+  FaMap,
+} from "react-icons/fa6";
 import Share from "../../utils/components/Share";
 function Verses() {
   const [verse_ind, setVerse_ind] = useState(0);
@@ -14,7 +23,7 @@ function Verses() {
   const [chapters, setChapters] = useState([]);
   const params = useParams();
   const langCtx = useContext(languageCtx);
-  function getSlokOfCurrentChapter(){
+  function getSlokOfCurrentChapter() {
     setVerses([]);
     setVerse_ind(0);
     getSlokByChapter(params.chapter_index)
@@ -31,7 +40,7 @@ function Verses() {
       .catch((e) => console.log(e));
     getSlokOfCurrentChapter();
   }, []);
-  
+
   useEffect(() => {
     if (params.chapter_index) {
       getSlokOfCurrentChapter();
@@ -42,13 +51,7 @@ function Verses() {
   }, [params]);
   return (
     <div className="verses w-100 h-100 vstack">
-      <div className="d-flex flex-column">
-
-      <h1>Verses in Bhagavad Gita </h1>
-      <nav className="hstack justify-content-end gap-2 px-2 ">
-        <Link to="/chapters" className="text-decoration-none">chapters </Link>
-      </nav>
-      </div>
+      <TopRowVerses heading={"Chapter " + params.chapter_index + ""}/>
       <div className="h-100 d-center justify-content-between px-2">
         <Verse verse={verses[verse_ind]} langCtx={langCtx} />
       </div>
@@ -83,8 +86,28 @@ function Verses() {
   );
 }
 
+function TopRowVerses({heading}) {
+  return <div className="d-flex flex-column  px-4 pt-1">
+    <h1 className="user-select-none">{heading}</h1>
+    <nav className="hstack justify-content-end gap-2 px-2 user-select-none">
+      <Link to="/loadmap" className="text-decoration-none d-center flex-column">
+        <div className="icon"><FaMap size={"20px"} /></div>
+        <div className="text font-px-16">loadmap </div>
+      </Link>
+      <Link to="/sitemap" className="text-decoration-none d-center flex-column">
+        <div className="icon"><FaMapSigns size={"20px"} /></div>
+        <div className="text font-px-16">sitemap </div>
+      </Link>
+      <Link to="/chapters" className="text-decoration-none d-center flex-column">
+        <div className="icon"><FaBook size={"20px"} /></div>
+        <div className="text font-px-16">chapters </div>
+      </Link>
+    </nav>
+  </div>;
+}
+
 function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
-  const params= useParams();
+  const params = useParams();
   return (
     <div className="down-cont hstack justify-content-between">
       <div className="left w-100">
@@ -95,9 +118,11 @@ function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
           {number >= 1 ? (
             <Link
               className="prev  fw-bold vstack bg-transparent border-0 text-dark text-decoration-none"
-              to={`${params.verse_index?`./../`:`./`}${number - 1 + 1}/`}
+              to={`${params.verse_index ? `./../` : `./`}${number - 1 + 1}/`}
             >
-              <div className="icon"><FaAngleLeft size={"23px"} /></div>
+              <div className="icon">
+                <FaAngleLeft size={"23px"} />
+              </div>
               <span className="opacity-50">{number - 1 + 1}</span>
             </Link>
           ) : (
@@ -109,9 +134,11 @@ function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
           {number < maxlength - 1 ? (
             <Link
               className="next  fw-bold vstack bg-transparent border-0 text-dark text-decoration-none"
-              to={`${params.verse_index?`./../`:`./`}${number + 1 + 1}/`}
+              to={`${params.verse_index ? `./../` : `./`}${number + 1 + 1}/`}
             >
-                 <div className="icon"><FaAngleRight size={"23px"} /></div>
+              <div className="icon">
+                <FaAngleRight size={"23px"} />
+              </div>
               <span className="opacity-50">{number + 1 + 1}</span>
             </Link>
           ) : (
@@ -129,4 +156,5 @@ function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
     </div>
   );
 }
+export { TopRowVerses };
 export default Verses;

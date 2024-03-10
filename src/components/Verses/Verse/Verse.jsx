@@ -8,7 +8,7 @@ function TranslationVerse({ translation }) {
         <ContentLoad value={translation?.description} lorem_count={12} />
       </div>
       <div className="hstack justify-content-between">
-        <div className="translation-id fw-bold text-gray hstack">
+        <div className="translation-id fw-bold text-gray hstack user-select-none">
           <div className="prefix">translate#</div>
           <ContentLoad value={translation?.id} lorem_count={1} />
         </div>
@@ -42,25 +42,36 @@ function Verse({ verse, langCtx }) {
     <div className="verse-cont">
       <div className="hstack justify-content-between">
         <div className="d-flex">
-          <div className="prefix">BG.</div>
-          <div className="chapter_number">
+          <span className="prefix">BG.</span>
+          <span className="chapter_number">
             <Load value={verse?.chapter_number} />
-          </div>
-          <div className="sep">.</div>
-          <div className="verse_number">
+          </span>
+          <span className="sep">.</span>
+          <span className="verse_number">
             <Load value={verse?.verse_number} />
-          </div>
+          </span>
         </div>
-        <div className="id text-gray fw-bold pe-none">
+        <div className="id text-gray fw-bold user-select-none">
           <ContentLoad value={verse?.id} lorem_count={2} />{" "}
         </div>
       </div>
       {/* <div className="commentaries">{verse?.commentaries}</div> */}
       <div className="d-flex flex-column fw-bold ">
-        <div className="text h2">
-          <ContentLoad value={verse?.text} lorem_count={10} />
+        <div className="text h2 font-Amita vstack gap-2">
+          <div className="verse-line verse-line-1 hstack">
+            <span className="content-sanskrit">
+              <ContentLoad value={verse?.text.split("।")[0]} lorem_count={10} />{" "}
+            </span>
+            <span className="seperator">|</span>
+          </div>
+          <div className="verse-line verse-line-2 hstack">
+            <span className="content-sanskrit">
+              <ContentLoad value={verse?.text.split("।")[1]} lorem_count={10} />
+            </span>
+            <span className="seperator">||</span>
+          </div>
         </div>
-        <div className="transliteration h3">
+        <div className="transliteration h5">
           <ContentLoad value={verse?.transliteration} lorem_count={10} />{" "}
         </div>
       </div>
@@ -75,7 +86,7 @@ function Verse({ verse, langCtx }) {
         <TranslationVerse translation={translationsInLang[randomTranslation]} />
       </div>
       {/* <div className="verse_number">{verse?.verse_number}</div> */}
-      <div className="slug">
+      <div className="slug user-select-none">
         <ContentLoad value={verse?.slug} lorem_count={3} />
       </div>
     </div>

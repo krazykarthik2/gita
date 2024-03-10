@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import {
   FaAngleLeft,
   FaAngleRight,
@@ -12,6 +18,8 @@ import { getChapters, getSlokByChapter } from "../../utils/gitaApi";
 import LanguageSelector from "../Chapters/Chapter/LanguageSelector";
 import Verse from "./../Verses/Verse";
 import { TiArrowSync } from "react-icons/ti";
+import { TopRowVerses } from "../Verses";
+import { useSwipeable } from "react-swipeable";
 function Quote() {
   const [verse_ind, setVerse_ind] = useState(0);
   const [verses, setVerses] = useState([]);
@@ -20,15 +28,60 @@ function Quote() {
   const params = useParams();
   const langCtx = useContext(languageCtx);
   const navigate = useNavigate();
+
+  const handleSwipe = useSwipeable({
+    onSwipedUp: () => {
+      nextQuote();
+    },
+    onSwipedLeft: () => {
+      goNext();
+    },
+    onSwipedRight: () => {
+      goPrev();
+    },
+  });
+  function goPrev() {
+    if (params.verse_index == 1) {
+      if (params.chapter_index > 1) {
+        navigate(
+          `/quote/${Number(params.chapter_index) - 1}/${
+            chapters[Number(params.chapter_index) - 2].verses_count
+          }`
+        );
+      }
+    } else
+      navigate(
+        `/quote/${params.chapter_index}/${Number(params.verse_index) - 1}`
+      );
+  }
+  function goNext() {
+    if (
+      params.verse_index ==
+      chapters[Number(params.chapter_index) - 1].verses_count
+    )
+      navigate(`/quote/${Number(params.chapter_index) + 1}/1`);
+    else
+      navigate(
+        `/quote/${params.chapter_index}/${Number(params.verse_index) + 1}`
+      );
+  }
+  const [ch_loading, setChLoading] = useState(false);
+
+  const [slok_loading, setSlokLoading] = useState(false);
+
   useMemo(() => {
+    setChLoading(true);
+    setSlokLoading(true);
     getChapters()
       .then((data) => {
         setChapters(data);
+        setChLoading(false);
       })
       .catch((e) => console.log(e));
     getSlokByChapter(params.chapter_index)
       .then((data) => {
         setVerses(data);
+        setSlokLoading(false);
         console.log(data);
       })
       .catch((error) => console.error(error));
@@ -43,33 +96,42 @@ function Quote() {
     }
   }, [params, chapters]);
   function nextQuote() {
-    let randomChap = Math.floor(Math.random() * (chapters.length - 1)) + 1;
+    let randomChap = Math.floor(Math.random() * (chapters.length - 1));
     console.log(randomChap);
     console.log(chapters[randomChap]);
     let randomVerse =
-      Math.floor(Math.random() * chapters[randomChap].verses_count) + 1;
-    navigate(`/quote/${randomChap}/${randomVerse}`);
+      Math.floor(Math.random() * (chapters[randomChap].verses_count - 1)) + 1;
+    if (randomChap == params.chapter_index - 1) {
+    } else {
+      setVerses([]);
+    }
+    navigate(`/quote/${randomChap + 1}/${randomVerse}`);
   }
   return (
-    <div className="verses w-100 h-100 vstack">
-      <div className="d-flex flex-column">
-        <h1>Verses in Bhagavad Gita </h1>
-        <nav className="hstack justify-content-end gap-2 px-2 ">
-          <Link to="/chapters" className="text-decoration-none">
-            chapters{" "}
-          </Link>
-        </nav>
-      </div>
-      <div className="refresh d-center w-100">
-        <TiArrowSync
-          size={"40px"}
+    <div
+      className={
+        "verses w-100 h-100 vstack" +
+        (ch_loading || slok_loading ? " loading pe-none " : "")
+      }
+    >
+      <div className="d-center w-100">
+        <button
+          className={
+            "refresh btn border-0 px-2" +
+            (ch_loading || slok_loading ? " loading pe-none spin " : "")
+          }
           onClick={() => {
             nextQuote();
           }}
-        />
+        >
+          <TiArrowSync size={"40px"} />
+        </button>
       </div>
-      <div className="h-100 d-center justify-content-between px-2">
-        <Verse verse={verses[verse_ind]} langCtx={langCtx} key={verse_ind} />
+
+      <div className="d-flex  align-items-start" {...handleSwipe}>
+        <div className="h-100 d-center justify-content-between px-2">
+          <Verse verse={verses[verse_ind]} langCtx={langCtx} key={verse_ind} />
+        </div>
       </div>
       {params.verse_index == verses.length && params.chapter_index < 18 && (
         <div className="d-center">

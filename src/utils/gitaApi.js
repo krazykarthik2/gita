@@ -35,61 +35,44 @@ async function fetchData(url) {
   return (await response).data;
 }
 
-// Function to get a specific sloka (verse)
-async function getSlok(chapter, verse) {
-  let data;
-
-  if (verses && verses[chapter - 1] && verses[chapter - 1][verse - 1]) {
-    data = verses[chapter - 1][verse - 1];
-  } else {
-    const url = `${BASE_URL}chapters/${chapter}/verses/${verse}`;
-    data = await fetchData(url);
-    verses[chapter - 1][verse - 1] = data;
-  }
-  return data;
+function getMemoMap() {
+  return {
+    chapters: chapters,
+    verses: verses,
+  };
 }
-async function getSlokByChapter(chapter) {
-  let data;
-  console.log(
-    verses &&
-      verses[chapter - 1] &&
-      verses[chapter - 1].length > 0
-  );
-  if (
-    verses &&
-    verses[chapter - 1] &&
-    verses[chapter - 1].length > 0
-  ) {
-    data = verses[chapter - 1];
-  } else {
-    const url = `${BASE_URL}chapters/${chapter}/verses/`;
-    data = await fetchData(url);
-    verses[chapter - 1] = data;
-  }
-  return data;
+window.getMemoMap = getMemoMap;
+/**
+ * Remember function is responsible for setting the cookie from the data obtained in getMemoMap().
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
+function remember() {
+  const data = getMemoMap().chapters;
+  window.gotData = data;
+  localStorage.setItem("chapters", JSON.stringify(data));
 }
-// Function to get a random sloka
-async function getRandomSlok() {
-  const chaptersData = await getChapters();
-  const chapter_random = Math.floor(Math.random() * chaptersData.length);
 
-  const verse_random = Math.floor(
-    Math.random() * chaptersData[chapter_random].verses_count
-  );
-  console.log("getting random verse:@", chapter_random, verse_random);
-
-  return getSlok(chapter_random + 1, verse_random + 1);
+function getFromMemory() {
+  const data = localStorage.getItem("chapters");
+  window.data = data;
+  return JSON.parse(data != null ? data : 'null');
 }
+
+chapters = getFromMemory();
+
 
 async function getChapters() {
   if (!chapters) {
     const url = `${BASE_URL}chapters/`;
     chapters = await fetchData(url);
   }
-  if (verses.length==0) {
+  if (verses.length == 0) {
     verses.length = chapters.length;
   }
-  window.verses=verses;
+  window.verses = verses;
+  remember();
   return chapters;
 }
 
@@ -104,12 +87,46 @@ async function getChapter(chapter) {
   }
   return chapterData;
 }
-function getMemoMap() {
-  return {
-    chapters: chapters,
-    verses: verses,
-  };
+
+// Function to get a specific sloka (verse)
+async function getSlok(chapter, verse) {
+  let data;
+
+  if (verses && verses[chapter - 1] && verses[chapter - 1][verse - 1]) {
+    data = verses[chapter - 1][verse - 1];
+  } else {
+    const url = `${BASE_URL}chapters/${chapter}/verses/${verse}`;
+    data = await fetchData(url);
+    verses[chapter - 1][verse - 1] = data;
+  }
+  remember();
+  return data;
 }
+async function getSlokByChapter(chapter) {
+  let data;
+  console.log(verses && verses[chapter - 1] && verses[chapter - 1].length > 0);
+  if (verses && verses[chapter - 1] && verses[chapter - 1].length > 0) {
+    data = verses[chapter - 1];
+  } else {
+    const url = `${BASE_URL}chapters/${chapter}/verses/`;
+    data = await fetchData(url);
+    verses[chapter - 1] = data;
+  }
+  remember();
+  return data;
+}
+// Function to get a random sloka
+async function getRandomSlok() {
+  const chaptersData = await getChapters();
+  const chapter_random = Math.floor(Math.random() * chaptersData.length);
+  const verse_random = Math.floor(
+    Math.random() * chaptersData[chapter_random].verses_count
+  );
+  console.log("getting random verse:@", chapter_random, verse_random);
+
+  return getSlok(chapter_random + 1, verse_random + 1);
+}
+
 export {
   getSlok,
   getRandomSlok,
