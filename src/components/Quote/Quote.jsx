@@ -128,7 +128,7 @@ function Quote() {
         </button>
       </div>
 
-      <div className="d-flex  align-items-start" {...handleSwipe}>
+      <div className="d-flex  align-items-start flex-grow-1" {...handleSwipe}>
         <div className="h-100 d-center justify-content-between px-2">
           <Verse verse={verses[verse_ind]} langCtx={langCtx} key={verse_ind} />
         </div>
