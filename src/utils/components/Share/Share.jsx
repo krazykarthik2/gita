@@ -20,10 +20,10 @@ const Share = ({ url, text = "Share this page",title="share bhagavadgita" }) => 
     <button
       to="#"
       onClick={handleClick}
-      className="share-button border-0 rounded-circle bg-dark text-info p-2 d-flex justify-content-center align-items-center"
+      className="share-button border-0 rounded-circle action-btn text-info p-2 d-flex justify-content-center align-items-center"
       style={{ width: "4em", height: "4em" }}
     >
-      <FaShareNodes size="2em" color="#fff" />
+      <FaShareNodes size="2em"  />
     </button>
   );
 };

@@ -1,0 +1,38 @@
+.theme-dark {
+  --text-color: #fff !important;
+  --theme-color: #1c1c1c !important;
+}
+.theme-light {
+  --text-color: #1c1c1c !important;
+  --theme-color: #fff !important;
+}
+.theme-blue {
+  --text-color: #fff !important;
+  --theme-color: #56f !important;
+}
+.text-color {
+  color: var(--text-color) !important;
+}
+
+.bg-theme {
+  background-color: var(--theme-color) !important;
+}
+
+.text-theme {
+  color: var(--theme-color) !important;
+}
+.btn {
+  color: var(--text-color) !important;
+  background-color: var(--theme-color) ;
+}
+
+.action-btn {
+  color: var(--theme-color) !important;
+  background-color: var(--text-color) !important;
+  font-family:  "Neue-bold" !important;
+  font-weight: bolder !important;
+}
+.form-control {
+  color: var(--text-color) !important;
+  background-color: transparent !important
+}

@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ContentLoad, Load } from "../../../utils/components/Loaders";
-function TranslationVerse({ translation }) {
+import { ButtonToolbar } from "react-bootstrap";
+import { FaRedo } from "react-icons/fa";
+function TranslationVerse({
+  translation,
+  reload = function () {},
+  totalCount = 1,
+}) {
   window.translation = translation;
   return (
     <div className="translation-verse">
@@ -12,6 +18,11 @@ function TranslationVerse({ translation }) {
           <div className="prefix">translate#</div>
           <ContentLoad value={translation?.id} lorem_count={1} />
         </div>
+        {totalCount > 1 && (
+          <button className="btn border-0 " onClick={() => reload()}>
+            <FaRedo />
+          </button>
+        )}
         <div className="translation-author hstack">
           <div className="prefix">~</div>
           <ContentLoad value={translation?.author_name} lorem_count={1} />
@@ -20,24 +31,34 @@ function TranslationVerse({ translation }) {
     </div>
   );
 }
-function Verse({ verse, langCtx }) {
+function Verse({ verse, langCtx, id }) {
   window.verse = verse;
   const [randomTranslation, setRandomTranslation] = useState(0);
   const [translationsInLang, setTranslationsInLang] = useState([]);
+  const [randomizeTrx, setRandomizeTrx] = useState(false);
+  window.randomTranslation = randomTranslation;
+  useEffect(
+    (e) => {
+      if (verse)
+        if (verse.translations)
+          setTranslationsInLang(
+            verse?.translations.filter((e) => e.language == langCtx.language)
+          );
+    },
+    [id, langCtx]
+  );
   useEffect(() => {
     if (verse)
       if (verse.translations)
-        setTranslationsInLang(
-          verse?.translations.filter((e) => e.language == langCtx.language)
-        );
-  }, [verse, langCtx]);
-  useEffect(() => {
-    if (verse)
-      if (verse.translations)
-        setRandomTranslation(
-          Math.floor(Math.random() * (translationsInLang.length - 1)) + 1
-        );
-  }, [verse]);
+        setRandomTranslation((e) => {
+          let randInt =
+            Math.floor(Math.random() * (translationsInLang.length - 1)) + 1;
+          if (e == randInt) {
+            randInt = (e + 1) % translationsInLang.length;
+          }
+          return randInt;
+        });
+  }, [randomizeTrx, translationsInLang, langCtx]);
   return (
     <div className="verse-cont">
       <div className="hstack justify-content-between">
@@ -83,7 +104,11 @@ function Verse({ verse, langCtx }) {
       </div> */}
 
       <div className="translation-random">
-        <TranslationVerse translation={translationsInLang[randomTranslation]} />
+        <TranslationVerse
+          translation={translationsInLang[randomTranslation]}
+          reload={() => setRandomizeTrx(Math.random())}
+          totalCount={translationsInLang.length}
+        />
       </div>
       {/* <div className="verse_number">{verse?.verse_number}</div> */}
       <div className="slug user-select-none">

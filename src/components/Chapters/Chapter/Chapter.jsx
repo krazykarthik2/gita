@@ -57,7 +57,7 @@ function Chapter({ chapter_index }) {
         </div>
         <div className="mid-down d-center">
           <Link
-            className="d-center text-decoration-none text-white bg-dark rounded-2 px-2 py-1"
+            className="d-center text-decoration-none text-color action-btn rounded-2 px-2 py-1"
             to={`/chapters/${chapter.id||params.chapter_index }/verses`}
           >
             <div className="icon book-icon">

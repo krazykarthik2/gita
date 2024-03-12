@@ -36,7 +36,7 @@ function LoadMap() {
       }
   }, [map]);
   return (
-    <div className="w-100 h-100 load-map">
+    <div className="w-100 h-100 load-map vh-100 overflow-y-auto">
       <h1>LoadMap</h1>
 
       {map?.chapters?.map((chap, i) => (

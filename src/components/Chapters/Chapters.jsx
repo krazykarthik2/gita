@@ -37,7 +37,7 @@ function Chapters() {
         {currentIndex >= 1 ? (
           <Link
             to={`/chapters/${currentIndex}`}
-            className="prev display-1 fw-bold bg-transparent border-0 text-decoration-none text-dark"
+            className="prev display-1 fw-bold bg-transparent border-0 text-decoration-none text-color opacity-50 font-Neue"
           >
             {currentIndex}
           </Link>
@@ -50,7 +50,7 @@ function Chapters() {
 
         {currentIndex < chapters.length - 1 ? (
           <Link
-            className="next display-1 fw-bold bg-transparent border-0 text-decoration-none text-dark"
+            className="next display-1 fw-bold bg-transparent border-0 text-decoration-none text-color opacity-50 font-Neue"
             to={`/chapters/${currentIndex + 2}`}
           >
             {currentIndex + 2}

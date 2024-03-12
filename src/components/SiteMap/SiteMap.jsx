@@ -15,11 +15,13 @@ function SiteMap() {
       .catch((error) => console.error(error));
   }, []);
   useEffect(() => {
-    const randInt1= Math.floor(Math.random() * (chapters.length - 1) + 1)
+    const randInt1 = Math.floor(Math.random() * (chapters.length - 1) + 1);
     setRandomIndex(randInt1);
-    if(chapters)
-    if(chapters.length>0)
-    setRandomIndex2(Math.floor(Math.random() * (chapters[randInt1].verses_count - 1) + 1));
+    if (chapters)
+      if (chapters.length > 0)
+        setRandomIndex2(
+          Math.floor(Math.random() * (chapters[randInt1].verses_count - 1) + 1)
+        );
   }, [chapters]);
   const site_map = [
     {
@@ -83,26 +85,30 @@ function SiteMap() {
       path: "/credits",
       name: "/credits",
       description: "Acknowledgments and credits for the website",
-    },{
+    },
+    {
       path: `/bg.${random_index}.${random_index_2}`,
       name: `/bg.${random_index}.${random_index_2}`,
       description: "Quote from Bhagavad Gita",
-    },{
+    },
+    {
       path: "/loadmap",
       name: "/loadmap",
       description: "Loads the map of the Bhagavad Gita loaded in this site",
-    }
+    },
   ];
   return (
-    <div className="sitemap">
+    <div className="sitemap d-flex flex-column">
       <h1>Bhagavad Gita Website Sitemap</h1>
-      <ul className="vstack list-group px-4 py-3">
+      <ul className="vstack list-group px-4 py-3 vh-90 overflow-y-auto">
         {site_map.map((item, index) => (
           <li key={index} className="list-group-item bg-secondary ">
-            <Link to={item.path} className="text-white text-decoration-none">
+            <Link to={item.path} className="text-color text-decoration-none">
               <div className="hstack justify-content-between flex-wrap  px-2 py-1 gap-3 ">
                 <div className="left h4">{item.name}</div>
-                <div className="right text-end  flex-grow-1">{item.description}</div>
+                <div className="right text-end  flex-grow-1">
+                  {item.description}
+                </div>
               </div>
             </Link>
           </li>

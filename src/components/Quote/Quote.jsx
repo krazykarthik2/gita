@@ -137,7 +137,7 @@ function Quote() {
         <div className="d-center">
           <Link
             to={`/chapters/${Number(params.chapter_index) + 1}/verses/`}
-            className="next-chapter text-white bg-dark px-2 py-1 rounded-3 d-flex text-decoration-none align-items-center justify-content-center gap-2"
+            className="next-chapter text-color bg-dark px-2 py-1 rounded-3 d-flex text-decoration-none align-items-center justify-content-center gap-2"
           >
             <div className="span d-none d-sm-flex">next chapter</div>
             <div className="icon book-icon">
@@ -175,7 +175,7 @@ function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
         <div className="h-100 d-center justify-content-between gap-3">
           {number >= 1 ? (
             <Link
-              className="prev  fw-bold vstack bg-transparent border-0 text-dark text-decoration-none"
+              className="prev  fw-bold vstack bg-transparent border-0 text-color text-decoration-none"
               to={`${params.verse_index ? `./../` : `./`}${number - 1 + 1}/`}
             >
               <div className="icon">
@@ -191,7 +191,7 @@ function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
           <div className="d-page-number display-3">{number + 1}</div>
           {number < maxlength - 1 ? (
             <Link
-              className="next  fw-bold vstack bg-transparent border-0 text-dark text-decoration-none"
+              className="next  fw-bold vstack bg-transparent border-0 text-color text-decoration-none"
               to={`${params.verse_index ? `./../` : `./`}${number + 1 + 1}/`}
             >
               <div className="icon">
