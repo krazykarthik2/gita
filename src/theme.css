@@ -17,7 +17,12 @@
 .bg-theme {
   background-color: var(--theme-color) !important;
 }
-
+.border-color{
+  border-color: var(--text-color) !important;
+}
+.border-theme{
+  border-color: var(--theme-color) !important;
+}
 .text-theme {
   color: var(--theme-color) !important;
 }

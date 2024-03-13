@@ -33,10 +33,9 @@ function TranslationVerse({
 }
 function Verse({ verse, langCtx, id }) {
   window.verse = verse;
-  const [randomTranslation, setRandomTranslation] = useState(0);
+  const [currTranslation, setCurrTranslation] = useState(0);
   const [translationsInLang, setTranslationsInLang] = useState([]);
   const [randomizeTrx, setRandomizeTrx] = useState(false);
-  window.randomTranslation = randomTranslation;
   useEffect(
     (e) => {
       if (verse)
@@ -48,17 +47,13 @@ function Verse({ verse, langCtx, id }) {
     [id, langCtx]
   );
   useEffect(() => {
+    if (verse) if (verse.translations) setCurrTranslation(0);
+  }, [translationsInLang, langCtx]);
+  useEffect(() => {
     if (verse)
       if (verse.translations)
-        setRandomTranslation((e) => {
-          let randInt =
-            Math.floor(Math.random() * (translationsInLang.length - 1)) + 1;
-          if (e == randInt) {
-            randInt = (e + 1) % translationsInLang.length;
-          }
-          return randInt;
-        });
-  }, [randomizeTrx, translationsInLang, langCtx]);
+        setCurrTranslation((e) => (e + 1) % translationsInLang.length);
+  }, [randomizeTrx]);
   return (
     <div className="verse-cont">
       <div className="hstack justify-content-between">
@@ -105,7 +100,7 @@ function Verse({ verse, langCtx, id }) {
 
       <div className="translation-random">
         <TranslationVerse
-          translation={translationsInLang[randomTranslation]}
+          translation={translationsInLang[currTranslation]}
           reload={() => setRandomizeTrx(Math.random())}
           totalCount={translationsInLang.length}
         />

@@ -1,29 +1,18 @@
-import React, {
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  useTransition,
-} from "react";
-import {
-  FaAngleLeft,
-  FaAngleRight,
-  FaArrowRight,
-  FaRegCircleDot,
-} from "react-icons/fa6";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import languageCtx from "../../context/languageCtx";
-import Share from "../../utils/components/Share";
-import { getChapters, getSlokByChapter } from "../../utils/gitaApi";
-import LanguageSelector from "../Chapters/Chapter/LanguageSelector";
-import Verse from "./../Verses/Verse";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { TiArrowSync } from "react-icons/ti";
-import { TopRowVerses } from "../Verses";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSwipeable } from "react-swipeable";
+import languageCtx from "../../context/languageCtx";
+import { NextChapterBtn } from "../../utils/components/Btn/NextChapterBtn";
+import { getChapters, getSlokByChapter } from "../../utils/gitaApi";
+import { BottomRowVerses } from "../Verses/BottomRowVerses";
+import Verse from "./../Verses/Verse";
 function Quote() {
   const [verse_ind, setVerse_ind] = useState(0);
   const [verses, setVerses] = useState([]);
   const [chapters, setChapters] = useState([]);
+  const [swipeXVal, setSwipeXVal] = useState(0);
+  const [swipeYVal, setSwipeYVal] = useState(0);
   window.chapters = chapters;
   const params = useParams();
   const langCtx = useContext(languageCtx);
@@ -39,6 +28,15 @@ function Quote() {
     onSwipedRight: () => {
       goPrev();
     },
+    onSwiped: () => {
+      setSwipeYVal(0);
+      setSwipeXVal(0);
+    },
+    onSwiping: (e) => {
+      setSwipeYVal(e.deltaY / 300);
+      setSwipeXVal(e.deltaX / 150);
+    },
+    preventScrollOnSwipe: true,
   });
   function goPrev() {
     if (params.verse_index == 1) {
@@ -101,7 +99,7 @@ function Quote() {
     console.log(chapters[randomChap]);
     let randomVerse =
       Math.floor(Math.random() * (chapters[randomChap].verses_count - 1)) + 1;
-    if (randomChap == params.chapter_index - 1) {
+    if (randomChap == Number(params.chapter_index) - 1) {
     } else {
       setVerses([]);
     }
@@ -110,7 +108,7 @@ function Quote() {
   return (
     <div
       className={
-        "verses w-100 h-100 vstack" +
+        "verses w-100 h-100 vstack vh-100 overflow-y-auto " +
         (ch_loading || slok_loading ? " loading pe-none " : "")
       }
     >
@@ -127,29 +125,89 @@ function Quote() {
           <TiArrowSync size={"40px"} />
         </button>
       </div>
-
-      <div className="d-flex  align-items-start flex-grow-1" {...handleSwipe}>
-        <div className="h-100 d-center justify-content-between px-2">
-          <Verse verse={verses[verse_ind]} langCtx={langCtx} key={verse_ind} />
+      <div className="position-relative d-center flex-grow-1">
+        <div
+          className="placeholder position-absolute w-100 h-100 bg-theme  d-center"
+          style={{
+            transform:
+              Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                ? swipeXVal < 1 && swipeXVal > 0
+                  ? `translateX(${(swipeXVal - 1) * 100}%)`
+                  : swipeXVal < 0
+                  ? `translateX(${(1 - swipeXVal) * 100})`
+                  : ``
+                : swipeYVal < 1 && swipeYVal > 0
+                ? `translateY(${(swipeYVal - 1) * 100}%)`
+                : swipeYVal < 0
+                ? `translateY(${(1 - swipeYVal) * 100})`
+                : ``,
+            opacity:
+              Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                ? 2 * Math.abs(swipeXVal)
+                : 2 * Math.abs(swipeYVal),
+          }}
+        >
+          <div className="placeholder-text d-center w-100 h-100 ">
+            <Verse
+              verse={
+                Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                  ? swipeXVal < 0
+                    ? verses[verse_ind + 1]
+                    : verses[verse_ind - 1]
+                  : null
+              }
+              langCtx={langCtx}
+              key={verse_ind}
+              id={
+                Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                  ? swipeXVal < 0
+                    ? verses[verse_ind + 1]?.id
+                    : verses[verse_ind - 1]?.id
+                  : null
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="d-flex  align-items-start w-100 h-100 swipe-cont"
+          {...handleSwipe}
+          style={{
+            transform:
+              Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                ? `translateX(${swipeXVal * 100}%)`
+                : ` translateY(${swipeYVal * 100}%)`,
+            opacity:
+              Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                ? 1 - 2 * Math.abs(swipeXVal)
+                : 1 - 2 * Math.abs(swipeYVal),
+            filter: `blur(${
+              Math.abs(swipeXVal) > Math.abs(swipeYVal)
+                ? 10 * Math.abs(swipeXVal)
+                : 10 * Math.abs(swipeYVal)
+            }px)`,
+          }}
+        >
+          <div className="h-100 d-center justify-content-between px-2">
+            <Verse
+              verse={verses[verse_ind]}
+              langCtx={langCtx}
+              key={verse_ind}
+              id={verses[verse_ind]?.id}
+            />
+          </div>
         </div>
       </div>
       {params.verse_index == verses.length && params.chapter_index < 18 && (
         <div className="d-center">
-          <Link
-            to={`/chapters/${Number(params.chapter_index) + 1}/verses/`}
-            className="next-chapter text-color bg-dark px-2 py-1 rounded-3 d-flex text-decoration-none align-items-center justify-content-center gap-2"
-          >
-            <div className="span d-none d-sm-flex">next chapter</div>
-            <div className="icon book-icon">
-              <FaArrowRight size={"40px"} />{" "}
-            </div>
-          </Link>
+          <NextChapterBtn
+            link={`/quote/${Number(params.chapter_index) + 1}/1`}
+          />
         </div>
       )}
       <BottomRowVerses
         langCtx={langCtx}
         url={`https://bhagavadgitakrazy.netlify.app/chapters/${
-          params.chapter_index + 1
+          Number(params.chapter_index) + 1
         }/verse/${params.verse_index + 1}/`}
         text={`bhagavadgita chapter-${params.chapter_index} verse-${
           params.verse_index + 1
@@ -164,54 +222,4 @@ function Quote() {
   );
 }
 
-function BottomRowVerses({ langCtx, number, url, text, title, maxlength }) {
-  const params = useParams();
-  return (
-    <div className="down-cont hstack justify-content-between">
-      <div className="left w-100">
-        <Share url={url} text={text} title={title} />
-      </div>
-      <div className="chapter_number center h4 user-select-none w-100 d-center">
-        <div className="h-100 d-center justify-content-between gap-3">
-          {number >= 1 ? (
-            <Link
-              className="prev  fw-bold vstack bg-transparent border-0 text-color text-decoration-none"
-              to={`${params.verse_index ? `./../` : `./`}${number - 1 + 1}/`}
-            >
-              <div className="icon">
-                <FaAngleLeft size={"23px"} />
-              </div>
-              <span className="opacity-50">{number - 1 + 1}</span>
-            </Link>
-          ) : (
-            <Link className="prev display-1 fw-bold bg-transparent border-0 font-redacted opacity-50">
-              x
-            </Link>
-          )}
-          <div className="d-page-number display-3">{number + 1}</div>
-          {number < maxlength - 1 ? (
-            <Link
-              className="next  fw-bold vstack bg-transparent border-0 text-color text-decoration-none"
-              to={`${params.verse_index ? `./../` : `./`}${number + 1 + 1}/`}
-            >
-              <div className="icon">
-                <FaAngleRight size={"23px"} />
-              </div>
-              <span className="opacity-50">{number + 1 + 1}</span>
-            </Link>
-          ) : (
-            <Link className="next display-1 fw-bold bg-transparent border-0 font-redacted opacity-50">
-              x
-            </Link>
-          )}
-        </div>
-      </div>
-      <div className="right d-center justify-content-end w-100 ">
-        <div>
-          <LanguageSelector langCtx={langCtx} />
-        </div>
-      </div>
-    </div>
-  );
-}
 export default Quote;

@@ -101,3 +101,6 @@ code {
 .vh-90{
   height: 90vh !important;
 }
+.btn{
+  transition: none !important;
+}
