@@ -1,17 +1,4 @@
-@font-face {
-  font-family: Neue;
-  src: url("/src/assets/fonts/NeueMachina-Light.otf"),
-    url("/src/assets/fonts/NeueMachina-Regular.otf"),
-    url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
-}
-@font-face {
-  font-family: "Neue-bold";
-  src: url("/src/assets/fonts/NeueMachina-Ultrabold.otf");
-}
-@import url("https://fonts.googleapis.com/css2?family=Redacted&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Kalam&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Amita&display=swap");
+
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif !important;
@@ -47,27 +34,7 @@ code {
   max-height: 100vh;
   overflow: hidden;
 }
-.font-redacted {
-  font-family: "Redacted" !important;
-  filter: blur(5px);
-  opacity: .45;
-}
 
-.font-Neue {
-  font-family: "Neue" !important;
-}
-.font-Neue.fw-bold {
-  font-family: "Neue-bold" !important;
-}
-.font-Kalam {
-  font-family: "Kalam" !important;
-}
-.font-Amita {
-  font-family: "Amita" !important;
-}
-.font-size-inherit {
-  font-size: inherit !important;
-}
 @keyframes spin {
   0% {
     transform: rotate(0deg);

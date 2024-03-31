@@ -17,6 +17,7 @@ import languageCtx from "./context/languageCtx";
 import Verses from "./components/Verses";
 import Query from "./components/Query";
 import Search from "./components/Search";
+import "./fonts.css";
 import "./theme.css";
 
 import { useCookies } from "react-cookie";
@@ -26,17 +27,20 @@ function App() {
   const themes = ["light", "dark", "blue", "auto"];
   const [theme, _setTheme] = useReducer((state, action) => {
     return action;
-  }, "auto");
+  }, 'auto');
   function setTheme(theme) {
     _setTheme(theme);
-    setThemeCookies({ theme });
+    setThemeCookies('theme',theme);
   }
 
   const [themeCookies, setThemeCookies] = useCookies(["theme"]);
 
   useEffect(() => {
-    setTheme(themeCookies.theme || "auto");
-  }, [themeCookies.theme]);
+    console.log(themeCookies)
+    if(themeCookies.theme)
+   _setTheme(themeCookies.theme);
+  
+  }, [themeCookies]);
 
   function handleAuto(theme) {
     if (theme === "auto") {

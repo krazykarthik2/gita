@@ -1,15 +1,19 @@
 .theme-dark {
   --text-color: #fff !important;
   --theme-color: #1c1c1c !important;
+  --theme-font:'Kalam' !important
 }
 .theme-light {
   --text-color: #1c1c1c !important;
   --theme-color: #fff !important;
+  --theme-font:'Amita' !important
 }
 .theme-blue {
   --text-color: #fff !important;
   --theme-color: #56f !important;
+  --theme-font:'Gotu' !important
 }
+
 .text-color {
   color: var(--text-color) !important;
 }

@@ -73,7 +73,7 @@ function Verse({ verse, langCtx, id }) {
       </div>
       {/* <div className="commentaries">{verse?.commentaries}</div> */}
       <div className="d-flex flex-column fw-bold ">
-        <div className="text h2 font-Amita vstack gap-2">
+        <div className="text h2 font-theme vstack gap-2">
           <div className="verse-line verse-line-1 hstack">
             <span className="content-sanskrit">
               <ContentLoad value={verse?.text.split("।")[0]} lorem_count={10} />{" "}

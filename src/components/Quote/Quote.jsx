@@ -7,6 +7,7 @@ import { NextChapterBtn } from "../../utils/components/Btn/NextChapterBtn";
 import { getChapters, getSlokByChapter } from "../../utils/gitaApi";
 import { BottomRowVerses } from "../Verses/BottomRowVerses";
 import Verse from "./../Verses/Verse";
+import { NavVerses } from "../Verses/TopRowVerses";
 function Quote() {
   const [verse_ind, setVerse_ind] = useState(0);
   const [verses, setVerses] = useState([]);
@@ -112,18 +113,28 @@ function Quote() {
         (ch_loading || slok_loading ? " loading pe-none " : "")
       }
     >
-      <div className="d-center w-100">
-        <button
-          className={
-            "refresh btn border-0 px-2" +
-            (ch_loading || slok_loading ? " loading pe-none spin " : "")
-          }
-          onClick={() => {
-            nextQuote();
-          }}
-        >
-          <TiArrowSync size={"40px"} />
-        </button>
+      <div className="d-center justify-content-between w-100">
+        <div className="left w-100"></div>
+        <div className="d-center w-100">
+          <div className="d-center flex-column">
+            <button
+              className={
+                "refresh btn border-0 p-0 d-center " +
+                (ch_loading || slok_loading ? " loading pe-none spin " : "")
+              }
+              onClick={() => {
+                nextQuote();
+              }}
+            >
+              <div>
+                <TiArrowSync size={"40px"} />
+              </div>
+            </button>
+          </div>
+        </div>
+        <div className="w-100">
+          <NavVerses />
+        </div>
       </div>
       <div className="position-relative d-center flex-grow-1">
         <div
