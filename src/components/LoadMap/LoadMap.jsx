@@ -31,17 +31,17 @@ function LoadMap() {
           for (let j in vmap[i]) {
             vmap[i][j] = map.verses[i] ? map.verses[i][j] : {};
           }
-        }
+        } 
         setVerseMap(vmap);
       }
   }, [map]);
   return (
     <div className="w-100 h-100 load-map vh-100 overflow-y-auto">
-      <h1>LoadMap</h1>
+      <h1>LoadMap </h1>
 
       {map?.chapters?.map((chap, i) => (
         <div key={i}>
-          <div className="h5">{chap.name}</div>
+          <div className="h5 font-theme">{chap.name}</div>
           <div className="d-center">
             <div className="d-flex flex-column  flex-wrap gap-2 ">
               {groupArray(verseMap[i], limit)?.map((e, index_up) => (
@@ -56,7 +56,7 @@ function LoadMap() {
                               "/chapters/" + i + "/verses/" + verse.verse_number
                             }
                             key={index_up * limit + index_down + 1}
-                            className="badge bg-success rounded-pill px-2 w-em-3"
+                            className="badge  rounded-pill px-2 w-em-3 text-decoration-none text-color bg-success"
                           >
                             {verse.verse_number}
                           </Link>
@@ -69,7 +69,7 @@ function LoadMap() {
                               (index_up * limit + index_down + 1)
                             }
                             key={index_up * limit + index_down + 1}
-                            className="badge bg-secondary rounded-pill px-2 w-em-3"
+                            className="badge bg-color text-theme text-decoration-none rounded-pill px-2 w-em-3"
                           >
                             {index_up * limit + index_down + 1}
                           </Link>

@@ -28,8 +28,8 @@ function Chapters() {
     <div className="chapters-screen w-100 d-center flex-column h-100">
       <div className="d-center justify-content-between w-100 px-3 pt-2">
         <div className="heading h1">Chapters</div>
-        <Link className="center" to={"/sitemap"}>
-          <FaMap />
+        <Link className="center text-color " to={"/sitemap"}>
+          <FaMap size={"2em"}/>
         </Link>
         <div className="number display-1">{chapters.length}</div>
       </div>
