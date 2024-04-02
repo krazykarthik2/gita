@@ -1,8 +1,31 @@
 .time {
-    line-height: .8;
-    font-size: 50vmin;
+  line-height: 0.8;
+  font-size: 60vmin;
+}
+.date {
+  font-size: 1.3rem;
+}
+.hours {
+}
+.dot-loader {
+  clip-path: polygon(
+    0 0,
+    calc(var(--i) * 1%) -2%,
+    calc(var(--i) * 1%) 110%,
+    0% 100%
+  );
+  transition: color 0.3s ease-out;
+}
+.minutes {
+}
+@media screen and (min-width: 768px) {
+  .time {
+    font-size: 30vw;
+  }
 }
 
-.hours {}
-
-.minutes {}
+@media screen and (max-width: 400px) {
+  .day {
+    transform: scale(0.8);
+  }
+}
