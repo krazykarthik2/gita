@@ -43,8 +43,10 @@ function Time() {
           </div>
         </div>
       </div>
-     
+     <div className="w-100 my-2">
+
       <Day_block day={new Date(time).getDay()} />
+     </div>
       <div className="w-100 my-4 px-4 d-md-none">
         <ProgressBar now={seconds} variant="dark" className="w-100 rounded-4" />
       </div>
