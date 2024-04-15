@@ -101,7 +101,7 @@ function Verse({ verse, langCtx, id }) {
           <div key={i}>{e}</div>
         ))}
       </div> */}
-      <hr style={{ '--i': '10px' }} />
+      <hr style={{ '--i': '10px' ,opacity:'0'}} />
       <div className="translation-random">
         <TranslationVerse
           translation={translationsInLang[currTranslation]}

@@ -31,7 +31,7 @@ function LoadMap() {
           for (let j in vmap[i]) {
             vmap[i][j] = map.verses[i] ? map.verses[i][j] : {};
           }
-        } 
+        }
         setVerseMap(vmap);
       }
   }, [map]);
@@ -46,38 +46,43 @@ function LoadMap() {
             <div className="d-flex flex-column  flex-wrap gap-2 ">
               {groupArray(verseMap[i], limit)?.map((e, index_up) => (
                 <React.Fragment key={index_up}>
-                 { e ? (
-                  <div className="d-flex gap-2 ">
-                    {e.map((verse, index_down) => (
-                      <React.Fragment key={index_down}>
-                        {verse.verse_number ? (
-                          <Link
-                            to={
-                              "/chapters/" + i + "/verses/" + verse.verse_number
-                            }
-                            key={index_up * limit + index_down + 1}
-                            className="badge  rounded-pill px-2 w-em-3 text-decoration-none text-color bg-success"
-                          >
-                            {verse.verse_number}
-                          </Link>
-                        ) : (
-                          <Link
-                            to={
-                              "/chapters/" +
-                              (i + 1) +
-                              "/verses/" +
-                              (index_up * limit + index_down + 1)
-                            }
-                            key={index_up * limit + index_down + 1}
-                            className="badge bg-color text-theme text-decoration-none rounded-pill px-2 w-em-3"
-                          >
-                            {index_up * limit + index_down + 1}
-                          </Link>
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </div>
-                  ) : (<></>)}
+                  {e ? (
+                    <div className="d-flex gap-2 ">
+                      {e.map((verse, index_down) => (
+                        <React.Fragment key={index_down}>
+                          {verse.verse_number ? (
+                            <Link
+                              to={
+                                "/chapters/" +
+                                (i + 1) +
+                                "/verses/" +
+                                verse.verse_number
+                              }
+                              key={index_up * limit + index_down + 1}
+                              className="badge  rounded-pill px-2 w-em-3 text-decoration-none text-color bg-success"
+                            >
+                              {verse.verse_number}
+                            </Link>
+                          ) : (
+                            <Link
+                              to={
+                                "/chapters/" +
+                                (i + 1) +
+                                "/verses/" +
+                                (index_up * limit + index_down + 1)
+                              }
+                              key={index_up * limit + index_down + 1}
+                              className="badge bg-color text-theme text-decoration-none rounded-pill px-2 w-em-3"
+                            >
+                              {index_up * limit + index_down + 1}
+                            </Link>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  ) : (
+                    <></>
+                  )}
                 </React.Fragment>
               ))}
             </div>

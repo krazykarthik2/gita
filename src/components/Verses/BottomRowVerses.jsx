@@ -73,7 +73,7 @@ export function BottomRowVerses({
         </div>
       </div>
 
-      <div className="right d-center justify-content-end w-100 flex-wrap ">
+      <div className="right d-center justify-content-end w-100 flex-wrap gap-2 ">
         {" "}
         <div className="act theme d-center">
           <ThemeSelector />
