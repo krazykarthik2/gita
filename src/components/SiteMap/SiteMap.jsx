@@ -100,7 +100,7 @@ function SiteMap() {
   return (
     <div className="sitemap d-flex flex-column">
       <h1>Bhagavad Gita Website Sitemap</h1>
-      <ul className="vstack list-group px-4 py-3 vh-90 overflow-y-auto">
+      <ul className="vstack list-group w-100 border-0 vh-90 overflow-y-auto">
         {site_map.map((item, index) => (
           <li key={index} className="list-group-item bg-secondary ">
             <Link to={item.path} className="text-color text-decoration-none">

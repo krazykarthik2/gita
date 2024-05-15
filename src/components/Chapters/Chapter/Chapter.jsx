@@ -19,6 +19,11 @@ function Chapter({ chapter_index }) {
       })
       .catch((error) => console.error(error));
   }, []);
+
+
+
+
+  
   return (
     <div className="chapter-cont h-100 vstack justify-content-between pt-2 ">
       <div className="hstack justify-content-between info-main flex-wrap gap-2">
